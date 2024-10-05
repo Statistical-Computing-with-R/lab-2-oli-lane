@@ -71,6 +71,7 @@ In the code chunk below, load in the packages necessary for your analysis. You s
 #| label: setup
 
 library(tidyverse)
+library(RColorBrewer)
 
 ```
 
@@ -215,15 +216,16 @@ It takes a larger cognitive load to read text that is rotated. It is common prac
 #| label: boxplot
 
 ggplot(data = surveys,
-       mapping = aes(x = species, y = weight)) +
-  geom_boxplot(outliers = FALSE) +
+       mapping = aes(x = species, y = weight, fill = genus)) +
   geom_jitter(alpha = 0.1, color = "steelblue") + 
+  geom_boxplot(outliers = FALSE) +
   labs(x = "Species of Rodent",
        y = "",
        title = "Distribution of Weight Within Rodent Species",
        subtitle = "Weight of Rodent (grams)",
        ) +
-  theme(axis.text.x = element_text(angle = 45))
+  theme(axis.text.x = element_text(angle = 45)) +
+  scale_fill_brewer(palette = "Set2")
 ```
 
 **10. Create side-by-side boxplots to visualize the distribution of weight within each species.**
@@ -271,16 +273,17 @@ Some people (and journals) prefer for boxplots to be stacked with a specific ori
 #| label: rotated-boxplot
 
 ggplot(data = surveys,
-       mapping = aes(x = weight, y = species)) +
+       mapping = aes(x = weight, y = species, fill = genus)) +
+  geom_jitter(alpha = 0.1, color = "steelblue") +
   geom_boxplot(outliers = FALSE) +
-  geom_jitter(alpha = 0.1, color = "steelblue") + 
   labs(x = "Weight of Rodent (grams)",
        y = "",
        title = "Distribution of Weight Within Rodent Species",
        subtitle = "Species of Rodent",
        ) +
 # ref 4
-  theme(axis.text.y = element_text(angle = 45))
+  theme(axis.text.y = element_text(angle = 45)) +
+  scale_fill_brewer(palette = "Pastel2")
 
 ```
 
